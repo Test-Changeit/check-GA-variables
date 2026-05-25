@@ -1,0 +1,32 @@
+name: PROVE NO ENVIRONMENT VARIABLE EXISTS
+
+on:
+  workflow_dispatch: # فقط دستی اجراش می‌کنیم که راحت باشی
+
+jobs:
+  investigate-contexts:
+    runs-on: ubuntu-latest
+    
+    # اینجا ورک‌فلو رو وصل می‌کنیم به همون محیطی که الان ساختی
+    environment: test-env
+
+    steps:
+      - name: 1. Print 'github' context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: 2. Print 'job' context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+
+      - name: 3. Print 'env' context
+        env:
+          ENV_CONTEXT: ${{ toJSON(env) }}
+        run: echo "$ENV_CONTEXT"
+
+      - name: 4. Print 'runner' context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo "$RUNNER_CONTEXT"
